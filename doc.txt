@@ -11,3 +11,6 @@
 2. npm install -D tailwindcss
 3. npx tailwindcss init
 4. npm i react-router-dom
+5. npm install react-icons --save
+6. npm i axios
+7. npm i react-hot-toast

@@ -1,11 +1,15 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Outlet } from "react-router-dom";
+import toast, { Toaster } from "react-hot-toast";
 
 function App() {
   return (
-    <main className='text-2xl font-bold'>
-      hello
-    </main>
+    <>
+      <Toaster />
+      <main>
+        <Outlet />
+      </main>
+    </>
   );
 }
 
