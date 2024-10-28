@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { RxAvatar } from "react-icons/rx";
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import axios from 'axios'
@@ -7,19 +7,12 @@ import Avatar from '../components/Avatar';
 
 export default function CheckPassword() {
     const [data, setData] = useState({
-        password: ""
+        password: "",
+        userId: ""
     })
 
     const navigate = useNavigate()
     const location = useLocation()
-
-    console.log("Location", location);
-
-    useEffect(() => {
-        if(!location?.state?.name) {
-            navigate('/email')
-        }
-    })
 
     const handleOnChange = (e) => {
         const { name, value } = e.target
@@ -48,8 +41,7 @@ export default function CheckPassword() {
                     password: ""
                 })
             }
-
-            navigate('/')
+            navigate('')
         } catch (error) {
             toast.error(error?.res?.data?.message)
         }
@@ -62,11 +54,11 @@ export default function CheckPassword() {
                     {/* <RxAvatar
                         size={90}
                     /> */}
-                    <Avatar 
-                    width={70}
-                    height={70}
-                    name={location?.state?.name}
-                    imageUrl={location?.state?.profile_pic}
+                    <Avatar
+                        width={70}
+                        height={70}
+                        name={location?.state?.name}
+                        imageUrl={location?.state?.profile_pic}
                     />
                     <h2 className='font-semibold text-lg mt-1'>{location?.state?.name}</h2>
                 </div>
@@ -88,12 +80,12 @@ export default function CheckPassword() {
                     </div>
 
                     <button className="bg-red-400 text-lg px-4 py-1 hover:bg-red-600 hover:text-gray-400 rounded font-semibold text-zinc-700">
-                        Legin
+                        Let's GO
                     </button>
                 </form>
 
                 <p className='my-3 text-center'>
-                    New User ? <Link to={"/register"} className="hover:text-gray-400 font-semibold">Forgot Password ?</Link>
+                    <Link to={"/forget-password"} className="hover:text-gray-400 font-semibold">Forget Password ?</Link>
                 </p>
             </div>
         </div>
