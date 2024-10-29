@@ -38,7 +38,9 @@ export default function CheckEmail() {
           email: ""
         })
       }
-      navigate('/password')
+      navigate('/password', {
+        state : res?.data?.data
+      })
     } catch (error) {
       toast.error(error?.res?.data?.message)
     }
@@ -46,8 +48,8 @@ export default function CheckEmail() {
 
   return (
     <div>
-      <div className='bg-white w-full max-w-sm m-2 overflow-hidden p-4 mx-auto my-10 rounded-md shadow-lg'>
-        <div className='w-fit mx-auto mb-2'>
+      <div className='w-full max-w-sm p-4 m-2 mx-auto my-10 overflow-hidden bg-white rounded-md shadow-lg'>
+        <div className='mx-auto mb-2 w-fit'>
           <RxAvatar
             size={90}
           />
@@ -63,20 +65,20 @@ export default function CheckEmail() {
               id='email'
               name='email'
               placeholder='Enter your email'
-              className='bg-slate-100 px-2 focus:outline-red-900'
+              className='px-2 bg-slate-100 focus:outline-red-900'
               value={data.email}
               onChange={handleOnChange}
               required
             />
           </div>
 
-          <button className="bg-red-400 text-lg px-4 py-1 hover:bg-red-600 hover:text-gray-400 rounded font-semibold text-zinc-700">
+          <button className="px-4 py-1 text-lg font-semibold bg-red-400 rounded hover:bg-red-600 hover:text-gray-400 text-zinc-700">
             Let's GO
           </button>
         </form>
 
         <p className='my-3 text-center'>
-          New User ? <Link to={"/register"} className="hover:text-gray-400 font-semibold">Register</Link>
+          New User ? <Link to={"/register"} className="font-semibold hover:text-gray-400">Register</Link>
         </p>
       </div>
     </div>

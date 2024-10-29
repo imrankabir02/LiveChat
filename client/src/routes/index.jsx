@@ -4,7 +4,6 @@ import Register from "../pages/Register"
 import Home from "../pages/Home";
 import Message from "../components/Message";
 import CheckEmail from "../pages/CheckEmail";
-import Login from "../pages/Login";
 import AuthLayouts from "../layout";
 import CheckPassword from "../pages/CheckPassword";
 import ForgotPassword from "../pages/ForgotPassword";
@@ -32,7 +31,7 @@ const router = createBrowserRouter([
                 element: <AuthLayouts><CheckPassword/></AuthLayouts>
             },
             {
-                path: "forgot-password",
+                path: "forget-password",
                 element: <AuthLayouts><ForgotPassword/></AuthLayouts>
             },
             {

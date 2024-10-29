@@ -23,7 +23,7 @@ export const verifyPassword = async (req, res) => {
         };
 
         const token = await jwt.sign(tokenData, process.env.JWT_SECRET_KEY, {
-            expiresIn: "1d",
+            expiresIn: "30d",
         });
 
         const cookieOptions = {

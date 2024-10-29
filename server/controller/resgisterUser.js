@@ -28,15 +28,17 @@ export const registerUser = async (req, res) => {
 
         const saveUser = await newUser.save()
 
+        let data = await UserModel.findById(saveUser._id).select('-password')
+
         return res.status(201).json({
             message: "User created successfully",
-            data: saveUser,
+            data: data,
             success: true
         })
 
     } catch (error) {
         return res.status(500).json({
-            message: error.message || error,
+            message: "Error" + error.message || error,
             error : true
         })
     }

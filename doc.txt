@@ -14,3 +14,4 @@
 5. npm install react-icons --save
 6. npm i axios
 7. npm i react-hot-toast
+8. npm install @reduxjs/toolkit react-redux
