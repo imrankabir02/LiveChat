@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useNavigate } from 'react-router-dom'
 import { logout } from '../redux/userSlice'
 import { setUser } from '../redux/userSlice'
+import Sidebar from '../components/Sidebar';
 
 export default function Home() {
   const user = useSelector(state => state.user)
@@ -37,10 +38,10 @@ export default function Home() {
     fetchUserDetails()
   },[])
   return (
-    <div className='grid grid-cols-[280px,1fr]'>
+    <div className='grid lg:grid-cols-[300px,1fr] h-screen max-h-screen'>
       <div>
-        <section>
-          sidebar
+        <section className='bg-white'>
+          <Sidebar/>
         </section>
       </div>
       <section>
