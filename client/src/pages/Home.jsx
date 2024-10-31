@@ -1,18 +1,21 @@
 import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { Outlet, useNavigate } from 'react-router-dom'
-import { logout } from '../redux/userSlice'
-import { setUser } from '../redux/userSlice'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { logout, setUser } from '../redux/userSlice'  // Ensure both actions are imported
 import Sidebar from '../components/Sidebar';
+import logo from '../assets/1.jpg'
 
 export default function Home() {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-  
+
+  const location = useLocation()  // Call useLocation as a function
+
   console.log("redux user", user);
-  const fetchUserDetails = async() => {
+
+  const fetchUserDetails = async () => {
     try {
       const URL = `${process.env.REACT_APP_BACKEND_URL}/user-details`
 
@@ -22,8 +25,8 @@ export default function Home() {
 
       dispatch(setUser(res.data.data))
 
-      if(res.data.logout) {
-        dispatch(logout)
+      if (res.data.logout) {
+        dispatch(logout())  // Dispatch logout as a function call
         navigate('/email')
       }
 
@@ -36,17 +39,32 @@ export default function Home() {
 
   useEffect(() => {
     fetchUserDetails()
-  },[])
+  }, [])
+
+  const basePath = location.pathname === '/'
+
   return (
     <div className='grid lg:grid-cols-[300px,1fr] h-screen max-h-screen'>
-      <div>
-        <section className='bg-white'>
-          <Sidebar/>
-        </section>
-      </div>
-      <section>
-        <Outlet/>
+      {/* Sidebar */}
+      <section className={`bg-white ${!basePath && "hidden"} lg:block`}>
+        <Sidebar />
       </section>
+
+      {/* Main Content */}
+      <section className={`${basePath && "hidden"}`}>
+        <Outlet />
+      </section>
+
+      <div className='flex-col items-center justify-center hidden gap-2 lg:flex'>
+        <div>
+          <img src={logo} alt="logo"
+            width={50}
+            height={100} 
+            className='rounded'
+            />
+        </div>
+        <p className='mt-2 text-lg text-slate-700'>Select user to send message</p>
+      </div>
     </div>
   )
 }
