@@ -16,7 +16,7 @@ export default function Sidebar() {
   const user = useSelector(state => state?.user)
   const [editUserOpen, setEditUserOpen] = useState(false)
   const [allUser, setAllUser] = useState([])
-  const [openSearchUser, setOpenSearchUser] = useState(true)
+  const [openSearchUser, setOpenSearchUser] = useState(false)
 
   return (
     <div className='grid w-full h-full grid-cols-[48px,1fr] bg-white'>

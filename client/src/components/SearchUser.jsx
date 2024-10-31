@@ -6,7 +6,7 @@ import UserSearchCard from './UserSearchCard';
 
 export default function SearchUser() {
     const [searchUser, setSearchUser] = useState([])
-    const [loading, setLoading] = useState(true)
+    const [loading, setLoading] = useState(false)
     
     return (
         <div className='fixed top-0 bottom-0 left-0 right-0 bg-slate-800 bg-opacity-40'>
