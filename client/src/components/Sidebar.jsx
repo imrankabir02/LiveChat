@@ -1,14 +1,15 @@
 import React, { useState } from 'react'
 import { BsChat } from "react-icons/bs";
 import { HiUserAdd } from "react-icons/hi";
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { BiLogOutCircle } from "react-icons/bi";
 import Avatar from './Avatar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EditUserDetails from './EditUserDetails';
 import Divider from './Divider';
 import { IoArrowBackCircleOutline } from "react-icons/io5";
 import SearchUser from './SearchUser';
+import { logout } from '../redux/userSlice';
 
 
 
@@ -17,6 +18,14 @@ export default function Sidebar() {
   const [editUserOpen, setEditUserOpen] = useState(false)
   const [allUser, setAllUser] = useState([])
   const [openSearchUser, setOpenSearchUser] = useState(false)
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+
+  const handleLogout = () => {
+    dispatch(logout())
+    navigate('/email')
+    localStorage.clear()
+  }
 
   return (
     <div className='grid w-full h-full grid-cols-[48px,1fr] bg-white'>
@@ -42,7 +51,7 @@ export default function Sidebar() {
               imageUrl={user?.profile_pic}
             />
           </button>
-          <button className='flex items-center justify-center w-12 h-12 rounded cursor-pointer hover:bg-slate-200' title='logout'>
+          <button onClick={handleLogout} className='flex items-center justify-center w-12 h-12 rounded cursor-pointer hover:bg-slate-200' title='logout'>
             <span className='-ml-1'>
               <BiLogOutCircle
                 size={30}
