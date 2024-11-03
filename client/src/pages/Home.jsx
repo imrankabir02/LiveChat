@@ -5,6 +5,7 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { logout, setUser } from '../redux/userSlice'  // Ensure both actions are imported
 import Sidebar from '../components/Sidebar';
 import logo from '../assets/1.jpg'
+import io from 'socket.io-client'
 
 export default function Home() {
   const user = useSelector(state => state.user)
@@ -41,6 +42,10 @@ export default function Home() {
     fetchUserDetails()
   }, [])
 
+  useEffect(() => {
+    const socketConnection = io(process.env.REACT_APP_BACKEND_URL)
+  })
+  
   const basePath = location.pathname === '/'
 
   return (
@@ -55,7 +60,7 @@ export default function Home() {
         <Outlet />
       </section>
 
-      <div className='flex-col items-center justify-center hidden gap-2 lg:flex'>
+      <div className={`justify-center items-center flex-col gap-2 hidden ${!basePath ? "hidden" : "lg:flex" }`}>
         <div>
           <img src={logo} alt="logo"
             width={50}

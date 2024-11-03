@@ -5,6 +5,7 @@ import { verifyPassword } from '../controller/verifyPassword.js';
 import { userDetails } from '../controller/userDetails.js';
 import { logout } from '../controller/logout.js';
 import { updateUser } from '../controller/updateUser.js';
+import { SearchUser } from '../controller/searchUser.js';
 
 const router = express.Router()
 
@@ -17,6 +18,8 @@ router.post('/password', verifyPassword)
 router.get('/user-details', userDetails)
 
 router.post('/update-user', updateUser)
+
+router.post('/search-user', SearchUser)
 
 router.get('/logout', logout)
 
