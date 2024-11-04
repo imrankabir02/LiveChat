@@ -2,7 +2,7 @@ import axios from 'axios'
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { logout, setUser } from '../redux/userSlice'  // Ensure both actions are imported
+import { logout, setUser, setOnlineUser, setSocketConnection } from '../redux/userSlice'  // Ensure both actions are imported
 import Sidebar from '../components/Sidebar';
 import logo from '../assets/1.jpg'
 import io from 'socket.io-client'
@@ -11,16 +11,14 @@ export default function Home() {
   const user = useSelector(state => state.user)
   const dispatch = useDispatch()
   const navigate = useNavigate()
-
-  const location = useLocation()  // Call useLocation as a function
-
-  console.log("redux user", user);
+  const location = useLocation()
 
   const fetchUserDetails = async () => {
     try {
       const URL = `${process.env.REACT_APP_BACKEND_URL}/user-details`
 
-      const res = await axios(URL, {
+      const res = await axios({
+        url: URL,
         withCredentials: true
       })
 
@@ -42,9 +40,24 @@ export default function Home() {
     fetchUserDetails()
   }, [])
 
-  useEffect(() => {
-    const socketConnection = io(process.env.REACT_APP_BACKEND_URL)
-  })
+  useEffect(()=>{
+    const socketConnection = io(process.env.REACT_APP_BACKEND_URL,{
+      auth : {
+        token : localStorage.getItem('token')
+      },
+    })
+
+    socketConnection.on('onlineUser',(data)=>{
+      console.log(data)
+      dispatch(setOnlineUser(data))
+    })
+
+    dispatch(setSocketConnection(socketConnection))
+
+    return ()=>{
+      socketConnection.disconnect()
+    }
+  },[])
   
   const basePath = location.pathname === '/'
 
