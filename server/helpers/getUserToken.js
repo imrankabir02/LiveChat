@@ -9,7 +9,7 @@ export const getUserToken = async (token) => {
         }
     }
 
-    const decodeToken = await jwt.verify(token, process.env.JWT_SECRET_KEY)
+    const decodeToken = jwt.verify(token, process.env.JWT_SECRET_KEY)
 
     const user = await UserModel.findById(decodeToken.id).select("-password")
 

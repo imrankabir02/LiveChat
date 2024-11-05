@@ -52,11 +52,6 @@ const Avatar = ({ userId, name, imageUrl, width, height }) => {
                     )
                 )
             }
-{/* 
-            {
-                <div className='absolute z-10 p-1 bg-green-600 rounded-full bottom-2 -right-1'></div>
-            } */}
-
         </div>
     )
 }
